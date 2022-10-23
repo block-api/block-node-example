@@ -3,17 +3,16 @@ GO ?= latest
 GORUN = env GO111MODULE=on go run
 GOBUILD = env GO111MODULE=on go build
 
-.PHONY: cli service build clean
+.PHONY: service build clean
 
 build:
-	make service cli
+	make service
 dev:
 	@echo "\n> --- run in development mode --"
 	DEBUG=true DATA_DIR=./build go run ./cmd/main.go
 service:
 	mkdir -p $(GOBIN)
-	cd ./cmd/service/ && go fmt ./... && $(GOBUILD) -o ./../../$(GOBIN)/example-service
-	# cp config.example.yml ./build/config.yml
+	cd ./cmd/ && go fmt ./... && $(GOBUILD) -o ./../$(GOBIN)/example-service
 	chmod +x $(GOBIN)/example-service
 
 	@echo "\n> ---"
