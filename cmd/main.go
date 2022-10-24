@@ -5,6 +5,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/block-api/block-node-example/auth"
 	"github.com/block-api/block-node/block"
 	"github.com/block-api/block-node/log"
 	"github.com/block-api/block-node/transporter"
@@ -16,7 +17,10 @@ func main() {
 		Version: 1,
 	}
 
+	authBlock := auth.NewAuthBlock()
 	blockNode := block.NewBlockNode(&options)
+
+	blockNode.AddBlock(&authBlock)
 	blockNode.Start()
 
 	/**
