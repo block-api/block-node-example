@@ -17,19 +17,12 @@ func NewAuthBlock() AuthBlock {
 	}
 
 	authBlock.AddAction("authorization", authBlock.ActionAuthorization)
-	authBlock.AddAction("ping", authBlock.ActionPing)
 
 	return authBlock
 }
 
 func (ab *AuthBlock) ActionAuthorization(payload any) error {
 	log.Default("-- ActionAuthorization --")
-	fmt.Println(payload)
-	return nil
-}
-
-func (ab *AuthBlock) ActionPing(payload any) error {
-	log.Default("-- ActionPing --")
 	fmt.Println(payload)
 	return nil
 }
