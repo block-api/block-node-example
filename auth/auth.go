@@ -12,28 +12,14 @@ type AuthBlock struct {
 }
 
 func NewAuthBlock() AuthBlock {
-	block := AuthBlock{
-		block.Block{
-			Name:    "auth-block",
-			Actions: make(map[string]block.BlockAction),
-		},
+	authBlock := AuthBlock{
+		block.NewBlock("auth-block"),
 	}
-	block.AddAction("authorization", block.ActionAuthorization)
-	block.AddAction("ping", block.ActionPing)
 
-	return block
-}
+	authBlock.AddAction("authorization", authBlock.ActionAuthorization)
+	authBlock.AddAction("ping", authBlock.ActionPing)
 
-func (ab *AuthBlock) GetName() string {
-	return ab.Block.Name
-}
-
-func (ab *AuthBlock) Actions() map[string]block.BlockAction {
-	return ab.Block.Actions
-}
-
-func (ab *AuthBlock) AddAction(name string, action block.BlockAction) {
-	ab.Block.Actions[name] = action
+	return authBlock
 }
 
 func (ab *AuthBlock) ActionAuthorization(payload interface{}) error {
