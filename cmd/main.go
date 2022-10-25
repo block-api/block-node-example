@@ -6,6 +6,7 @@ import (
 	"syscall"
 
 	"github.com/block-api/block-node-example/auth"
+	"github.com/block-api/block-node-example/user"
 	"github.com/block-api/block-node/block"
 	"github.com/block-api/block-node/log"
 	"github.com/block-api/block-node/transporter"
@@ -18,9 +19,12 @@ func main() {
 	}
 
 	authBlock := auth.NewAuthBlock()
+	userBlock := user.NewUserBlock()
+
 	blockNode := block.NewBlockNode(&options)
 
-	blockNode.AddBlock(&authBlock)
+	blockNode.AddBlock(&authBlock, &userBlock)
+
 	blockNode.Start()
 
 	/**

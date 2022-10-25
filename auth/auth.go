@@ -13,7 +13,7 @@ type AuthBlock struct {
 
 func NewAuthBlock() AuthBlock {
 	authBlock := AuthBlock{
-		block.NewBlock("auth-block"),
+		block.NewBlock("auth"),
 	}
 
 	authBlock.AddAction("authorization", authBlock.ActionAuthorization)
