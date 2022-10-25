@@ -22,13 +22,13 @@ func NewAuthBlock() AuthBlock {
 	return authBlock
 }
 
-func (ab *AuthBlock) ActionAuthorization(payload interface{}) error {
+func (ab *AuthBlock) ActionAuthorization(payload any) error {
 	log.Default("-- ActionAuthorization --")
 	fmt.Println(payload)
 	return nil
 }
 
-func (ab *AuthBlock) ActionPing(payload interface{}) error {
+func (ab *AuthBlock) ActionPing(payload any) error {
 	log.Default("-- ActionPing --")
 	fmt.Println(payload)
 	return nil
