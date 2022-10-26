@@ -8,6 +8,7 @@ import (
 	"github.com/block-api/block-node-example/auth"
 	"github.com/block-api/block-node-example/user"
 	"github.com/block-api/block-node/block"
+	"github.com/block-api/block-node/common/types"
 	"github.com/block-api/block-node/log"
 	"github.com/block-api/block-node/transporter"
 )
@@ -32,14 +33,14 @@ func main() {
 	 */
 	target := ""
 	payload := transporter.PayloadDiscovery{
-		NodeID:  blockNode.NodeID(),
+		NodeID:  blockNode.NodeID().String(),
 		Name:    blockNode.GetName(),
 		Version: blockNode.Version(),
 		Event:   transporter.EventConnected,
 		Blocks:  blockNode.Blocks(),
 	}
 
-	pocket := transporter.NewPocket[transporter.PayloadDiscovery](transporter.ChanDiscovery, blockNode.NodeID(), target, payload)
+	pocket := transporter.NewPocket[transporter.PayloadDiscovery](transporter.ChanDiscovery, blockNode.NodeID(), types.NodeID(target), payload)
 	blockNode.Network().Send(pocket)
 	/** ** ** **/
 
