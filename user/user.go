@@ -11,9 +11,9 @@ type UserBlock struct {
 	block.Block
 }
 
-func NewUserBlock() UserBlock {
+func NewUserBlock(bn *block.BlockNode) UserBlock {
 	userBlock := UserBlock{
-		block.NewBlock("user"),
+		block.NewBlock(bn, "user"),
 	}
 
 	userBlock.AddAction("get-user", userBlock.ActionGetUser)
@@ -21,8 +21,10 @@ func NewUserBlock() UserBlock {
 	return userBlock
 }
 
-func (ub *UserBlock) ActionGetUser(payload any) error {
+func (ub *UserBlock) ActionGetUser(payload []byte) (any, error) {
+	var response any
 	log.Default("-- ActionGetUser --")
 	fmt.Println(payload)
-	return nil
+
+	return response, nil
 }

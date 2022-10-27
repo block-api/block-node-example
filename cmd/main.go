@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,13 +18,19 @@ func main() {
 		Version: 1,
 	}
 
-	authBlock := auth.NewAuthBlock()
-	userBlock := user.NewUserBlock()
-
 	blockNode := block.NewBlockNode(&options)
+
+	authBlock := auth.NewAuthBlock(&blockNode)
+	userBlock := user.NewUserBlock(&blockNode)
 
 	blockNode.AddBlock(&authBlock, &userBlock)
 	blockNode.Start()
+
+	go func(authBlock *auth.AuthBlock) {
+		http.HandleFunc("/hello", authBlock.HttpGetHello)
+
+		http.ListenAndServe(":8090", nil)
+	}(&authBlock)
 
 	var osSignal chan os.Signal = make(chan os.Signal)
 	signal.Notify(osSignal, os.Interrupt, syscall.SIGTERM)
