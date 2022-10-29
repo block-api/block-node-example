@@ -75,3 +75,46 @@ func (ab *AuthBlock) ApiHello(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(200)
 	w.Write(json)
 }
+
+func (ab *AuthBlock) ApiPing(w http.ResponseWriter, req *http.Request) {
+	var response map[string]string = make(map[string]string)
+
+	w.Header().Add("Content-Type", "application/json")
+
+	// this action will be executed locally - even if there are other "block-node-example" nodes available in the network
+	// in this case there would be no request sent over network, it is done that way to reduce latency
+	// "v1.block-node-example.auth.hello"
+	targetAction := types.TargetAction{
+		Name:    "node-test",
+		Version: 1,
+		Block:   "pingpong",
+		Action:  "ping",
+	}
+
+	resPayload, err := ab.BlockNode().Send(nil, &targetAction)
+	if err != nil {
+		log.Warning(err.Error())
+
+		if err == errors.ErrInvalidTargetAction {
+			response["error"] = errors.ErrInvalidTargetAction.Error()
+			w.WriteHeader(400)
+		}
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.Write(jsonResponse)
+
+		return
+	}
+
+	json, _ := resPayload.JSON()
+
+	w.WriteHeader(200)
+	w.Write(json)
+}

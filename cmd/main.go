@@ -28,6 +28,7 @@ func main() {
 
 	go func(authBlock *auth.AuthBlock) {
 		http.HandleFunc("/hello", authBlock.ApiHello)
+		http.HandleFunc("/ping", authBlock.ApiPing)
 
 		http.ListenAndServe(":8090", nil)
 	}(&authBlock)
