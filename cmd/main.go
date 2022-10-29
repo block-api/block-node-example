@@ -27,7 +27,7 @@ func main() {
 	blockNode.Start()
 
 	go func(authBlock *auth.AuthBlock) {
-		http.HandleFunc("/hello", authBlock.HttpGetHello)
+		http.HandleFunc("/hello", authBlock.ApiHello)
 
 		http.ListenAndServe(":8090", nil)
 	}(&authBlock)
