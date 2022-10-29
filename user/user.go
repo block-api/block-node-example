@@ -5,6 +5,7 @@ import (
 
 	"github.com/block-api/block-node/block"
 	"github.com/block-api/block-node/log"
+	"github.com/block-api/block-node/transporter"
 )
 
 type UserBlock struct {
@@ -21,10 +22,10 @@ func NewUserBlock(bn *block.BlockNode) UserBlock {
 	return userBlock
 }
 
-func (ub *UserBlock) ActionGetUser(payload []byte) (any, error) {
-	var response any
+func (ub *UserBlock) ActionGetUser(payload transporter.PayloadMessage) (*transporter.PayloadMessage, error) {
+	// var response any
 	log.Default("-- ActionGetUser --")
 	fmt.Println(payload)
 
-	return response, nil
+	return nil, nil
 }

@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/block-api/block-node/block"
-	"github.com/block-api/block-node/log"
 	"github.com/block-api/block-node/transporter"
 )
 
@@ -18,20 +17,21 @@ func NewAuthBlock(bn *block.BlockNode) AuthBlock {
 	}
 
 	authBlock.AddAction("authorization", authBlock.ActionAuthorization)
+	authBlock.AddAction("hello", authBlock.ActionHello)
 
 	return authBlock
 }
 
-func (ab *AuthBlock) ActionAuthorization(payload []byte) (any, error) {
-	var response any
+func (ab *AuthBlock) ActionAuthorization(payload transporter.PayloadMessage) (*transporter.PayloadMessage, error) {
+	fmt.Println(payload)
 
-	body, err := block.DecodePayload[transporter.PayloadMessage](payload)
-	if err != nil {
-		log.Warning(err.Error())
-		return response, err
+	return nil, nil
+}
+
+func (ab *AuthBlock) ActionHello(payload transporter.PayloadMessage) (*transporter.PayloadMessage, error) {
+	responseMessage := transporter.PayloadMessage{
+		Data: "Hello " + payload.Data.(string),
 	}
 
-	fmt.Println(body)
-
-	return response, nil
+	return &responseMessage, nil
 }
