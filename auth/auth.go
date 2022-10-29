@@ -41,10 +41,6 @@ func (ab *AuthBlock) ActionAuthorization(payload []byte) (any, error) {
 func (ab *AuthBlock) HttpGetHello(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
-	payload := transporter.PayloadMessage{
-		Data: "it is working",
-	}
-
 	// this action will be executed locally - even if there are other "block-node-example" nodes available in the network
 	// in this case there would be no request sent over network, it is done that way to reduce latency
 	// "v1.block-node-example.auth.authorization"
@@ -55,8 +51,11 @@ func (ab *AuthBlock) HttpGetHello(w http.ResponseWriter, req *http.Request) {
 		Action:  "authorization",
 	}
 
-	pocket := transporter.NewPocket(transporter.ChanMessage, ab.BlockNode().VersionName(), ab.BlockNode().NodeID(), nil, &targetAction, payload)
-	ab.BlockNode().Send(pocket)
+	payload := transporter.PayloadMessage{
+		Data: "it is working",
+	}
 
-	fmt.Fprintf(w, "hello\n")
+	ab.BlockNode().Send(&payload, &targetAction)
+
+	w.WriteHeader(204)
 }
