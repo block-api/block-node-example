@@ -82,7 +82,7 @@ func (ab *HelloWorldBlock) ApiPing(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	targetAction := types.TargetAction{
-		Name:    "node-test",
+		Name:    "ping-pong-service",
 		Version: 1,
 		Block:   "pingpong",
 		Action:  "ping",
