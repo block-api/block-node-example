@@ -6,32 +6,29 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/block-api/block-node-example/auth"
-	"github.com/block-api/block-node-example/user"
+	"github.com/block-api/block-node-example/hello-world-service/helloworld"
 	"github.com/block-api/block-node/block"
 	"github.com/block-api/block-node/log"
 )
 
 func main() {
 	options := block.BlockNodeOptions{
-		Name:    "block-node-example",
+		Name:    "hello-world-service",
 		Version: 1,
 	}
 
 	blockNode := block.NewBlockNode(&options)
+	helloWorldBlock := helloworld.NewHelloWorldBlock(&blockNode)
 
-	authBlock := auth.NewAuthBlock(&blockNode)
-	userBlock := user.NewUserBlock(&blockNode)
-
-	blockNode.AddBlock(&authBlock, &userBlock)
+	blockNode.AddBlock(&helloWorldBlock)
 	blockNode.Start()
 
-	go func(authBlock *auth.AuthBlock) {
-		http.HandleFunc("/hello", authBlock.ApiHello)
-		http.HandleFunc("/ping", authBlock.ApiPing)
+	go func(helloWorldBlock *helloworld.HelloWorldBlock) {
+		http.HandleFunc("/hello", helloWorldBlock.ApiHello)
+		http.HandleFunc("/ping", helloWorldBlock.ApiPing)
 
 		http.ListenAndServe(":8090", nil)
-	}(&authBlock)
+	}(&helloWorldBlock)
 
 	var osSignal chan os.Signal = make(chan os.Signal)
 	signal.Notify(osSignal, os.Interrupt, syscall.SIGTERM)

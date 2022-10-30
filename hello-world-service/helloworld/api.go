@@ -1,4 +1,4 @@
-package auth
+package helloworld
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"github.com/block-api/block-node/transporter"
 )
 
-func (ab *AuthBlock) ApiHello(w http.ResponseWriter, req *http.Request) {
+func (ab *HelloWorldBlock) ApiHello(w http.ResponseWriter, req *http.Request) {
 	var response map[string]string = make(map[string]string)
 
 	w.Header().Add("Content-Type", "application/json")
@@ -38,9 +38,9 @@ func (ab *AuthBlock) ApiHello(w http.ResponseWriter, req *http.Request) {
 	// in this case there would be no request sent over network, it is done that way to reduce latency
 	// "v1.block-node-example.auth.hello"
 	targetAction := types.TargetAction{
-		Name:    "block-node-example",
+		Name:    "hello-world-service",
 		Version: 1,
-		Block:   "auth",
+		Block:   "helloworld",
 		Action:  "hello",
 	}
 
@@ -76,7 +76,7 @@ func (ab *AuthBlock) ApiHello(w http.ResponseWriter, req *http.Request) {
 	w.Write(json)
 }
 
-func (ab *AuthBlock) ApiPing(w http.ResponseWriter, req *http.Request) {
+func (ab *HelloWorldBlock) ApiPing(w http.ResponseWriter, req *http.Request) {
 	var response map[string]string = make(map[string]string)
 
 	w.Header().Add("Content-Type", "application/json")
