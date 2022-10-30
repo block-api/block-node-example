@@ -4,16 +4,37 @@
 <img src="./docs/images/golang-gopher.png" width="250" alt="golang gopher"/>
 </p>
 
-In this repository you can find example implementation of microservice with **block-node**.
+In this repository you can find dockerized two simple microservices built with **block-node**:
 
-<small>Run locally in dev mode</small>
+- `hello-world-service`
+- `ping-pong-service`
+
+## Run it and test yourself
+
+In order to run it and test you need to have installed [Docker](https://www.docker.com/) and [Go language](https://go.dev/) v1.18.
+
+Once you have these two installed, run command below in root directory of the project to build docker images and start services:
+
+```shell
+docker-compose up
+```
+
+When running it for the first time it might take a bit longer to start as this example require [Redis](https://redis.io/) which is used as a communication transporter - Docker will need to download it.
+
+## Developement
+
+If you would like to make any changes inside examples and run it locally for testing without Docker you can go into `hello-world-service` directory or `ping-pong-service` and run command below to start it in developement mode:
 
 ```shell
 make dev
 ```
 
-<small>Build</small>
+<small>**Note:** To Build binary run</small>
 
 ```shell
 make build
 ```
+
+<small>This command will compile files into one executable file which can be found in `build` directory of the service.</small>
+
+For information about configuration options head to **block-node** [repository](https://github.com/block-api/block-node).
