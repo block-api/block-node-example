@@ -1,7 +1,7 @@
 debug: false
 transporter:
   redis:
-    host: localhost
+    host: redis
     port: 6379
     username:
     password:
@@ -10,4 +10,4 @@ transporter:
 database:
   leveldb:
     discovery:
-      path: /var/block-node-example/data/db-discovery
+      path: /var/block-node/hello-world-service/data/discovery.db

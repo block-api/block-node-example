@@ -19,7 +19,7 @@ Once you have these two installed, run command below in root directory of the pr
 docker-compose up
 ```
 
-When running it for the first time it might take a bit longer to start as this example require [Redis](https://redis.io/) which is used as a communication transporter - Docker will need to download it.
+When running it for the first time it might take a bit longer to start as this example require [Redis](https://redis.io/) which is used as a communication transporter - Docker will need to download it as well as Go language.
 
 ### hello-world-service
 

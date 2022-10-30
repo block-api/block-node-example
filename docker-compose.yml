@@ -1,0 +1,35 @@
+version: "3"
+networks:
+  main:
+    driver: bridge
+services:
+  redis:
+    image: "redis:7"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./redis_data:/data"
+    networks:
+      - main
+  ping-pong-service:
+    build:
+      context: ./ping-pong-service
+      dockerfile: ./Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - DEBUG=false
+    networks:
+      - main
+  hello-world-service:
+    build:
+      context: ./hello-world-service
+      dockerfile: ./Dockerfile
+    ports:
+      - "8090:8090"
+    depends_on:
+      - redis
+    environment:
+      - DEBUG=false
+    networks:
+      - main

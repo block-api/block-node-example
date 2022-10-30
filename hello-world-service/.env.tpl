@@ -1,2 +1,2 @@
 DEBUG=false
-CONFIG_DIR=/absolute/path/to/directory/with/config-file
+CONFIG_DIR=/go/src/github.com/block-node-example/hello-world-service/build
