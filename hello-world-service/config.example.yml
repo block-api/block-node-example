@@ -1,5 +1,8 @@
 debug: false
 transporter:
+  timeout: 30 # default timeout for actions, in seconds
+  heartbeatInterval: 5 # in seconds
+  deliveryMethod: random
   redis:
     host: redis
     port: 6379

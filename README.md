@@ -16,7 +16,7 @@ In order to run it and test you need to have installed [Docker](https://www.dock
 Once you have these two installed, run command below in root directory of the project to build docker images and start services:
 
 ```shell
-docker-compose up
+docker-compose up --scale ping-pong-service=2
 ```
 
 When running it for the first time it might take a bit longer to start as this example require [Redis](https://redis.io/) which is used as a communication transporter - Docker will need to download it as well as Go language.

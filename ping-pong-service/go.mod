@@ -2,7 +2,7 @@ module github.com/block-api/auth-service
 
 go 1.18
 
-require github.com/block-api/block-node v0.1.0
+require github.com/block-api/block-node v0.1.2
 
 require (
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
