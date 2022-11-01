@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/block-api/block-node-example/hello-world-service/helloworld"
 	"github.com/block-api/block-node/block"
@@ -27,7 +28,14 @@ func main() {
 		http.HandleFunc("/hello", helloWorldBlock.ApiHello)
 		http.HandleFunc("/ping", helloWorldBlock.ApiPing)
 
-		http.ListenAndServe(":8090", nil)
+		srv := &http.Server{
+			Addr:         ":8090",
+			ReadTimeout:  30 * time.Second,
+			WriteTimeout: 120 * time.Second,
+		}
+		srv.SetKeepAlivesEnabled(true)
+		_ = srv.ListenAndServe()
+
 	}(&helloWorldBlock)
 
 	var osSignal chan os.Signal = make(chan os.Signal)

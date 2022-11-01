@@ -54,3 +54,39 @@ make build
 <small>This command will compile files into one executable file which can be found in `build` directory of the service.</small>
 
 For information about configuration options head to **block-node** [repository](https://github.com/block-api/block-node).
+
+## Benchmark
+Below you can find benchmark results done with [wrk](https://github.com/wg/wrk) benchmarking tool.
+
+Tests were performed on MacOS Monetery *MacBook Pro, 2 GHz Quad-Core Intel Core i5, 32 GB 3733 MHz LPDDR4X* 
+running both services and Redis instance.
+
+*Local method invocation*<br>
+`wrk -t12 -c500 -d30s http://localhost:8090/hello?name=Jhon`
+
+```text
+Running 30s test @ http://localhost:8090/hello?name=Jhon
+  12 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.37ms    2.28ms  41.90ms   90.72%
+    Req/Sec     8.61k     3.80k   52.65k    55.81%
+  3087124 requests in 30.10s, 379.79MB read
+  Socket errors: connect 253, read 121, write 0, timeout 0
+Requests/sec: 102568.82
+Transfer/sec:     12.62MB
+```
+
+*Remote node method invocation*<br>
+`wrk -t12 -c500 -d30s http://localhost:8090/ping`
+
+```text
+Running 30s test @ http://localhost:8090/ping
+  12 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    45.69ms    6.38ms  88.01ms   79.38%
+    Req/Sec   433.66    226.21     1.17k    61.94%
+  155489 requests in 30.02s, 18.24MB read
+  Socket errors: connect 253, read 128, write 0, timeout 0
+Requests/sec:   5178.84
+Transfer/sec:    622.07KB
+```
