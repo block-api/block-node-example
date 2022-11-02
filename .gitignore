@@ -5,4 +5,4 @@ build/
 node_modules/
 .env
 tmp
-./redis_data
+redis_data/
