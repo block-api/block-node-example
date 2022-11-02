@@ -2,7 +2,7 @@ module github.com/block-api/block-node-example/hello-world-service
 
 go 1.18
 
-require github.com/block-api/block-node v0.1.2
+require github.com/block-api/block-node v0.1.3
 
 require (
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
@@ -18,6 +18,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/mattn/go-sqlite3 v1.14.16 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
