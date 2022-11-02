@@ -8,6 +8,7 @@ In this repository you can find dockerized two simple microservices built with *
 
 - `hello-world-service`
 - `ping-pong-service`
+- `sqlite-service`
 
 ## Run it and test yourself
 
@@ -18,6 +19,7 @@ Once you have these two installed, run command below in root directory of the pr
 ```shell
 docker-compose up --scale ping-pong-service=2
 ```
+<small>**Note:** Please keep in mind that in this example implementation if you scale `sqlite-service` each of them will have separate database and there is no data synchronization between those.</small>
 
 When running it for the first time it might take a bit longer to start as this example require [Redis](https://redis.io/) which is used as a communication transporter - Docker will need to download it as well as Go language.
 
@@ -33,13 +35,29 @@ This endpoint will call `ping-pong-service` which is not exposing any HTTP endpo
 
 This endpoint will call itself (locally) to invoke proper action and return data.
 
+#### `http://localhost:8090/user/add?name=Jhon`
+
+This endpoint will call `sqlite-service` and will add new entry to SQLite database
+
+#### `http://localhost:8090/user/get?name=Jhon`
+
+This endpoint will call `sqlite-service` and will get ID of row in SQLite database for given user name
+
+#### `http://localhost:8090/user/delete?name=Jhon`
+
+This endpoint will call `sqlite-service` and will delete entry from SQLite database
+
 ### ping-pong-service
 
 This microservice contains one action `ping` which should return `pong` as a result. It does not expose any HTTP endpoints like `hello-world-service` and can be reached out by another microservice in the network.
 
-## Developement
+### sqlite-service
 
-If you would like to make any changes inside examples and run it locally for testing without Docker you can go into `hello-world-service` directory or `ping-pong-service` and run command below to start it in developement mode:
+This microservice has three very simple (please keep in mind there is no sanity checks etc - this is not how you should do it on production environment) actions to `add`, `get` and `delete` entry in SQLite database.
+
+## Development
+
+If you would like to make any changes inside examples and run it locally for testing without Docker you can go into `hello-world-service` directory, `ping-pong-service` or `sqlite-service` and run command below to start it in developement mode:
 
 ```shell
 make dev
