@@ -33,3 +33,13 @@ services:
       - DEBUG=false
     networks:
       - main
+  sqlite-service:
+    build:
+      context: ./sqlite-service
+      dockerfile: ./Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - DEBUG=false
+    networks:
+      - main
