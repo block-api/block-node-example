@@ -9,8 +9,12 @@ transporter:
     username:
     password:
     db: 0
-  p2p:
 database:
   leveldb:
     discovery:
       path: /var/block-node/ping-pong-service/data/discovery.db
+#  sqlite:
+#    default:
+#      path: "/var/block-node/data/default.sqlite"
+#      options: "cache=shared&mode=rw"
+#      maxOpenConnections: 1
