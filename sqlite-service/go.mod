@@ -1,4 +1,4 @@
-module github.com/block-api/block-node-example/hello-world-service
+module github.com/block-api/block-node-example/sqlite-service
 
 go 1.18
 
@@ -24,5 +24,3 @@ require (
 	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-//replace github.com/block-api/block-node v0.1.3 => /Users/mac/go/src/github.com/block-api/block-node

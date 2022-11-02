@@ -1,0 +1,20 @@
+debug: false
+transporter:
+  timeout: 30 # default timeout for actions, in seconds
+  heartbeatInterval: 5 # in seconds
+  deliveryMethod: random
+  redis:
+    host: redis
+    port: 6379
+    username:
+    password:
+    db: 0
+database:
+  leveldb:
+    discovery:
+      path: /var/block-node/ping-pong-service/data/discovery.db
+  sqlite:
+    default:
+      path: "/var/block-node/sqlite-service/data/default.sqlite"
+      options: "cache=shared&mode=rw"
+      maxOpenConnections: 1

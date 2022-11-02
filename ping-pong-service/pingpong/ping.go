@@ -10,13 +10,13 @@ type PingPongBlock struct {
 }
 
 func NewPingPongBlock(bn *block.BlockNode) PingPongBlock {
-	block := PingPongBlock{
+	serviceBlock := PingPongBlock{
 		block.NewBlock(bn, "pingpong"),
 	}
 
-	block.AddAction("ping", block.ActionPing)
+	serviceBlock.AddAction("ping", serviceBlock.ActionPing)
 
-	return block
+	return serviceBlock
 }
 
 func (ab *PingPongBlock) ActionPing(payload transporter.PayloadMessage) (*transporter.PayloadMessage, error) {

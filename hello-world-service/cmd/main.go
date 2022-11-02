@@ -27,6 +27,9 @@ func main() {
 	go func(helloWorldBlock *helloworld.HelloWorldBlock) {
 		http.HandleFunc("/hello", helloWorldBlock.ApiHello)
 		http.HandleFunc("/ping", helloWorldBlock.ApiPing)
+		http.HandleFunc("/user/add", helloWorldBlock.ApiAddUser)
+		http.HandleFunc("/user/get", helloWorldBlock.ApiGetUser)
+		http.HandleFunc("/user/delete", helloWorldBlock.ApiDeleteUser)
 
 		srv := &http.Server{
 			Addr:         ":8090",

@@ -115,3 +115,192 @@ func (ab *HelloWorldBlock) ApiPing(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(200)
 	w.Write(json)
 }
+
+func (ab *HelloWorldBlock) ApiAddUser(w http.ResponseWriter, req *http.Request) {
+	var response map[string]string = make(map[string]string)
+
+	w.Header().Add("Content-Type", "application/json")
+
+	urlQuery := req.URL.Query()
+	name := urlQuery.Get("name")
+
+	if name == "" {
+		response["error"] = "name is missing"
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.WriteHeader(400)
+		w.Write(jsonResponse)
+		return
+	}
+
+	targetAction := types.TargetAction{
+		Name:    "sqlite-service",
+		Version: 1,
+		Block:   "user",
+		Action:  "add",
+	}
+
+	payload := transporter.PayloadMessage{
+		Data: name,
+	}
+
+	resPayload, err := ab.BlockNode().Send(&payload, &targetAction)
+	if err != nil {
+		log.Warning(err.Error())
+
+		if err == errors.ErrInvalidTargetAction {
+			response["error"] = errors.ErrInvalidTargetAction.Error()
+			w.WriteHeader(400)
+		}
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.Write(jsonResponse)
+
+		return
+	}
+
+	json, _ := resPayload.JSON()
+
+	w.WriteHeader(200)
+	w.Write(json)
+}
+
+func (ab *HelloWorldBlock) ApiGetUser(w http.ResponseWriter, req *http.Request) {
+	var response = make(map[string]string)
+
+	w.Header().Add("Content-Type", "application/json")
+
+	urlQuery := req.URL.Query()
+	name := urlQuery.Get("name")
+
+	if name == "" {
+		response["error"] = "name is missing"
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.WriteHeader(400)
+		w.Write(jsonResponse)
+		return
+	}
+
+	targetAction := types.TargetAction{
+		Name:    "sqlite-service",
+		Version: 1,
+		Block:   "user",
+		Action:  "get",
+	}
+
+	payload := transporter.PayloadMessage{
+		Data: name,
+	}
+
+	resPayload, err := ab.BlockNode().Send(&payload, &targetAction)
+	if err != nil {
+		log.Warning(err.Error())
+
+		if err == errors.ErrInvalidTargetAction {
+			response["error"] = errors.ErrInvalidTargetAction.Error()
+			w.WriteHeader(400)
+		}
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.Write(jsonResponse)
+
+		return
+	}
+
+	json, _ := resPayload.JSON()
+
+	w.WriteHeader(200)
+	w.Write(json)
+}
+
+func (ab *HelloWorldBlock) ApiDeleteUser(w http.ResponseWriter, req *http.Request) {
+	var response = make(map[string]string)
+
+	w.Header().Add("Content-Type", "application/json")
+
+	urlQuery := req.URL.Query()
+	name := urlQuery.Get("name")
+
+	if name == "" {
+		response["error"] = "name is missing"
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.WriteHeader(400)
+		w.Write(jsonResponse)
+		return
+	}
+
+	targetAction := types.TargetAction{
+		Name:    "sqlite-service",
+		Version: 1,
+		Block:   "user",
+		Action:  "delete",
+	}
+
+	payload := transporter.PayloadMessage{
+		Data: name,
+	}
+
+	resPayload, err := ab.BlockNode().Send(&payload, &targetAction)
+	if err != nil {
+		log.Warning(err.Error())
+
+		if err == errors.ErrInvalidTargetAction {
+			response["error"] = errors.ErrInvalidTargetAction.Error()
+			w.WriteHeader(400)
+		}
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			log.Warning(err.Error())
+			w.WriteHeader(500)
+
+			return
+		}
+
+		w.Write(jsonResponse)
+
+		return
+	}
+
+	json, _ := resPayload.JSON()
+
+	w.WriteHeader(200)
+	w.Write(json)
+}
