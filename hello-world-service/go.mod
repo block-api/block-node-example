@@ -2,7 +2,7 @@ module github.com/block-api/block-node-example/hello-world-service
 
 go 1.18
 
-require github.com/block-api/block-node v0.1.3
+require github.com/block-api/block-node v0.1.4
 
 require (
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
